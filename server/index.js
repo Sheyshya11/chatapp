@@ -1,11 +1,17 @@
 const express = require("express");
 const app = express();
 const http = require("http");
+const path = require("path");
 const { Server } = require("socket.io");
-const server = http.createServer(app);
 const cors = require("cors");
 
+require("dotenv").config();
+
+const server = http.createServer(app);
+
+app.use(express.json());
 app.use(cors());
+app.use(express.static(path.join(__dirname, "public")));
 
 const io = new Server(server, {
   cors: {
